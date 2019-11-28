@@ -5,7 +5,7 @@ require 'fileutils'
 class DownloadController < ActionController::Base
   include CodeBuildHelper
 
-  def download
+  def download_zip
     # generate manifest.json
     FileUtils.mkdir_p(Dir.pwd + "/tmp/my_app/") unless File.exist?(Dir.pwd + "/tmp/my_app/")
 
@@ -30,6 +30,7 @@ class DownloadController < ActionController::Base
     end
 
     # generate app.js
+    byebug
     File.open(Dir.pwd  +  "/tmp/my_app/app/app.js", "w") do |f|
       f.write generate_code(params)
     end
@@ -47,7 +48,7 @@ class DownloadController < ActionController::Base
     temp_file = Tempfile.new("my_app.zip")   
     write_to_zip_file(temp_file.path) 
 
-    render :file => temp_file.path, :content_type => 'application/zip', :status => :ok
+    send_file(temp_file.path , :type => 'application/zip', :filename => 'my_app.zip', disposition: 'attachment')
   end
 
 

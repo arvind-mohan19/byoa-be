@@ -1,0 +1,1 @@
+$(document).ready( function() { app.initialized() .then(function(_client) { var client = _client; var eventCallback = function (event) { var event_data = event.helper.getData(); if(event.data.new != '3') { client.interface.trigger('disable', {id: 'priority'}) }}; client.events.on('ticket.statusChanged', eventCallback); }); });

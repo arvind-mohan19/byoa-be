@@ -1,7 +1,8 @@
 module CodeBuildHelper
   include CodeSnippets
-  
+
   def generate_code(build_params)
+    return unless build_params['app']
     base_code = CodeSnippets::BaseCode
     build_params['app'].each do |snippet|
       main_code_block = build_decider(snippet)

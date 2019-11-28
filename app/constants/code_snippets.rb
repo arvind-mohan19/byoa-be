@@ -7,7 +7,6 @@ module CodeSnippets
       "disable": "client.interface.trigger('disable', {id: '%{element}'})",
       "enable": "client.interface.trigger('enable', {id: '%{element}'})",
       "setOptions": "client.interface.trigger('setOptions', {id: '%{element}'})"
-
     },
 
     "data_api": "client.data.get('%{type}').then (function(data) { %{code_block} });",

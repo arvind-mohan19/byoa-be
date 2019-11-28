@@ -2,6 +2,8 @@ ByoaBe::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
+  post 'download_zip', to: 'download#download_zip'
+
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
