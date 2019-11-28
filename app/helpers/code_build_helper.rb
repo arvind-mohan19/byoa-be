@@ -34,8 +34,8 @@ module CodeBuildHelper
     format(CodeSnippets::MarketplaceSnippets[:data_api], type: type.to_sym, code_block: "%{code_block}")
   end
 
-  def build_non_global_interface_api(type, element)
-    format(CodeSnippets::MarketplaceSnippets[:non_global_interface_api][type.to_sym], element: element)
+  def build_non_global_interface_api(type, element, value = nil)
+    format(CodeSnippets::MarketplaceSnippets[:non_global_interface_api][type.to_sym], element: element, value: value)
   end
 
   def build_decider(snippet)
@@ -47,7 +47,7 @@ module CodeBuildHelper
     when "data"
       build_data_api(snippet['type'])
     when "non_global_interface"
-      build_non_global_interface_api(snippet['type'], snippet['fieldName'])
+      build_non_global_interface_api(snippet['type'], snippet['fieldName'], snippet['fieldValue'])
     end
   end
 

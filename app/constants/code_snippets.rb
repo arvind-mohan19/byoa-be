@@ -6,7 +6,8 @@ module CodeSnippets
       "show": "client.interface.trigger('show', {id: '%{element}'});",
       "disable": "client.interface.trigger('disable', {id: '%{element}'});",
       "enable": "client.interface.trigger('enable', {id: '%{element}'});",
-      "setOptions": "client.interface.trigger('setOptions', {id: '%{element}'});",
+      "setOptions": "client.interface.trigger('setOptions', {id: '%{element}', value: %{value}});",
+      "setValue": "client.interface.trigger('setOptions', {id: '%{element}', value: %{value}});"
     },
 
     "data_api": "client.data.get('%{type}').then (function(data) { %{code_block} });",
@@ -15,11 +16,14 @@ module CodeSnippets
 
     "events_click_api": "var eventCallback = function (event) { %{code_block}}; client.events.on('%{type}', eventCallback);",
 
-    "event_data": "event_data.new",
+    "event_data_new": "event_data.new",
+    "event_data_old": "event_data.old",
 
     "logged_in_user_data": "data['loggedInUser']['contact']['%{key}']",
     "domain_name_data": "data['%{key}']",
     "ticket_data": "data['ticket']['%{key}']",
+    "contact_data": "data['contact']['%{key}']",
+    "requester_data": "data['requester']['%{key}']"
   }
   GeneralSnippets = {
     "condition": "%{name} %{operator} '%{value}'",

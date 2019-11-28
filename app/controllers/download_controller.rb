@@ -10,7 +10,7 @@ class DownloadController < ActionController::Base
     FileUtils.mkdir_p(Dir.pwd + "/tmp/my_app/") unless File.exist?(Dir.pwd + "/tmp/my_app/")
 
     File.open(Dir.pwd  + "/tmp/my_app/manifest.json", "w") do |f|
-      f.write(format(CodeSnippets::Manifest.to_json, location: params['location']))
+      f.write(format(CodeSnippets::Manifest.to_json, location: params['config']['location']))
     end
     # generate README.md
     File.open(Dir.pwd  +  "/tmp/my_app/README.md", "w") do |f|
@@ -37,17 +37,20 @@ class DownloadController < ActionController::Base
     # *****BUILD CONFIG FOLDER*****
     FileUtils.mkdir_p(Dir.pwd + "/tmp/my_app/config/") unless File.exist?(Dir.pwd + "/tmp/my_app/config")
     #generate config file
-    File.open(Dir.pwd  +  "/tmp/my_app/config/iparam_test_json.json", "w") do |f|
-      f.write ""
+    File.open(Dir.pwd  +  "/tmp/my_app/config/iparam_test_data.json", "w") do |f|
+      f.write({}.to_json)
     end
     File.open(Dir.pwd  +  "/tmp/my_app/config/iparams.json", "w") do |f|
-      f.write ""
+      f.write({}.to_json)
     end
 
     temp_file = Tempfile.new("my_app.zip")   
-    write_to_zip_file(temp_file.path) 
+    ZipFileGenerator.new(dir_path, temp_file.path).write()
 
-    send_file(temp_file.path , :type => 'application/zip', :filename => 'my_app.zip', disposition: 'attachment')
+    # response.headers['Content-Disposition'] = "attachment; filename=myapp.zip"
+    # render zip: temp_file.path, content_type: 'application/zip'
+    send_file temp_file.path, type: 'application/zip'
+    # send_file(temp_file.path , :type => 'application/zip', :filename => 'my_app.zip', disposition: 'attachment')
   end
 
 
@@ -64,14 +67,14 @@ class DownloadController < ActionController::Base
   def dir_path
     Dir.pwd + "/tmp/my_app/"
   end
-
-  # Zip::File.open("/var/folders/k3/g4dc5r7s0xv7bj1r_9kvlhw08dwjnh/T/my_app.zip20191128-99099-12fh5lk") do |zipfile|
-  #   zipfile.each do |entry|
-  #     if entry.directory?
-  #       puts "#{entry.name} is a folder!"
-  #     elsif entry.file?
-  #       puts "#{entry.name} is a regular file!"
-  #     end
-  #   end
-  # end
 end
+
+# Zip::File.open("/var/folders/k3/g4dc5r7s0xv7bj1r_9kvlhw08dwjnh/T/my_app.zip20191128-99099-12fh5lk") do |zipfile|
+#   zipfile.each do |entry|
+#     if entry.directory?
+#       puts "#{entry.name} is a folder!"
+#     elsif entry.file?
+#       puts "#{entry.name} is a regular file!"
+#     end
+#   end
+# end
