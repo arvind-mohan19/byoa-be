@@ -5,8 +5,13 @@ module CodeBuildHelper
     return unless build_params['app']
     base_code = CodeSnippets::BaseCode
     build_params['app'].each do |snippet|
-      main_code_block = build_decider(snippet)
       condition_block = condition_builder(snippet['condition']) if snippet['condition']
+      main_code_block = ""
+      snippet['actions'].each do |action|
+        main_code_block += build_decider(action)
+        main_code_block + CodeSnippets::GeneralSnippets[:code_block]
+      end
+      main_code_block = format(main_code_block, code_block: "")
       if condition_block
         conditioned_main_code_block = format(condition_block, code_block: main_code_block)
         base_code = format(base_code, app_code: conditioned_main_code_block)

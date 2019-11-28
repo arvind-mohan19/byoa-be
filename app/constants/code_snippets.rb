@@ -2,11 +2,11 @@ module CodeSnippets
   BaseCode = "$(document).ready( function() { app.initialized() .then(function(_client) { var client = _client; %{app_code} }); });"
   MarketplaceSnippets = {
     "non_global_interface_api": {
-      "hide": "client.interface.trigger('hide', {id: '%{element}'})",
-      "show": "client.interface.trigger('show', {id: '%{element}'})",
-      "disable": "client.interface.trigger('disable', {id: '%{element}'})",
-      "enable": "client.interface.trigger('enable', {id: '%{element}'})",
-      "setOptions": "client.interface.trigger('setOptions', {id: '%{element}'})"
+      "hide": "client.interface.trigger('hide', {id: '%{element}'});",
+      "show": "client.interface.trigger('show', {id: '%{element}'});",
+      "disable": "client.interface.trigger('disable', {id: '%{element}'});",
+      "enable": "client.interface.trigger('enable', {id: '%{element}'});",
+      "setOptions": "client.interface.trigger('setOptions', {id: '%{element}'});",
     },
 
     "data_api": "client.data.get('%{type}').then (function(data) { %{code_block} });",
@@ -23,7 +23,8 @@ module CodeSnippets
   }
   GeneralSnippets = {
     "condition": "%{name} %{operator} '%{value}'",
-    "if_clause": "if(%{condition}) { %{code_block} }"
+    "if_clause": "if(%{condition}) { %{code_block} }",
+    "code_block": " %{code_block}"
   }
 
   Manifest = {

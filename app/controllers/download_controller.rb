@@ -30,7 +30,6 @@ class DownloadController < ActionController::Base
     end
 
     # generate app.js
-    byebug
     File.open(Dir.pwd  +  "/tmp/my_app/app/app.js", "w") do |f|
       f.write generate_code(params)
     end

@@ -25,27 +25,37 @@ build_params = {
 
 
 build_params = {
-  config: {
-    location: '',
-    name: '',
+  "config": {
+    "location": "",
+    "name": "",
   },
-  app: [
+  "app": [
     {
-      type: 'disable',
-      fieldName: 'priority',
-      mkpType: 'non_global_interface',
-      condition: {
-          type: 'events_changed_api',
-          fieldName: '',
-          criteria: {
-            fieldName: 'events_changed_api',
-            fieldValue: 'ticket.statusChanged',
-            operator: "==",
-            fromSnippet: false,
-            key: 'email'
-          },
-          condition_type: 'when_changed'
+      "condition": {
+        "type": "ticket.statusChanged",
+        "fieldName": "",
+        "criteria": {
+          "fieldName": "event.data.new",
+          "fieldValue": 3,
+          "operator": "!=",
+          "fromSnippet": false,
+          "key": nil
+        },
+        "condition_type": "when_changed"
+      },
+
+      "actions": [
+        { 
+          "type": "disable",
+          "fieldName": "priority",
+          "mkpType": "non_global_interface"
+        },
+        { 
+          "type": "hide",
+          "fieldName": "status",
+          "mkpType": "non_global_interface"
         }
+      ]
     }
   ]
 }
